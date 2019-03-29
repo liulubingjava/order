@@ -39,7 +39,6 @@
   import HeaderDetail from "../header-detail/header-detail"
   import { getSeller } from "../../api"
 
-
   export default {
     name: "v-header",
     props: {
@@ -53,6 +52,7 @@
     },
     methods: {
       showDetail: function () {
+        // 做一下缓存,如果不加this.HeaderDetailComp ||，则每次点开HeaderDetail都会在自加一次，而不是只有一个HeaderDetail
         this.HeaderDetailComp = this.HeaderDetailComp || this.$createHeaderDetail({
             $props: {
               seller: 'seller'
