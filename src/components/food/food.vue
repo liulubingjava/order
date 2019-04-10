@@ -20,10 +20,10 @@
               <span v-show="food.oldPrice" class="oldPrice">￥{{food.oldPrice}}</span>
             </div>
             <div class="cart-control-wrapper">
-              <cart-control @add="addFood()" :food="food"></cart-control>
+              <cart-control @add="addFood" :food="food"></cart-control>
             </div>
             <transition name="fade">
-              <div @click.stop="addFirst($event)" class="buy" v-show="!food.count">
+              <div @click="addFirst($event)" class="buy" v-show="!food.count">
                 加入购物车
               </div>
             </transition>
@@ -34,6 +34,36 @@
             <div class="text">{{food.info}}</div>
           </div>
           <split></split>
+          <div class="rating">
+            <h1 class="title">商品评价</h1>
+            <rating-select
+              :ratings="ratings"
+              :selectType="selectType"
+              :onlyContent="onlyContent"
+              :desc="desc"
+              @select="onSelect"
+              @toggle="onToggle"
+            >
+            </rating-select>
+            <div class="rating-wrapper">
+              <ul v-show="computedRatings && computedRatings.length">
+                <li class="rating-item border-bottom-1px" :data="computedRatings" v-for="(rating,index) in computedRatings" :key="index">
+                  <div class="time">{{format(rating.rateTime)}}</div>
+                  <p class="text">
+                    <span :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down': rating.rateType===1}"></span>
+                    {{rating.text}}
+                  </p>
+                  <div class="user">
+                    <span class="name">{{rating.username}}</span>
+                    <img class="avatar" :src="rating.avatar" width="12" height="12" alt="">
+                  </div>
+                </li>
+              </ul>
+              <div class="no-rating" v-show="!computedRatings && !computedRatings.length">
+                暂无评价
+              </div>
+            </div>
+          </div>
         </div>
       </cube-scroll>
     </div>
@@ -43,10 +73,15 @@
 <script type="text/ecmascript-6">
   import Split from "../spilt/split"
   import CartControl from "../cart-control/cart-control"
+  import moment from "moment"
+  import RatingSelect from "../rating-select/rating-select"
+  import RatingMixin from "../../common/mixins/rating"
 
-  const EVENT_ADD = 'add'
+  const ENENT_ADD = 'add'
+
   export default {
     name: 'food',
+    mixins: [RatingMixin],
     props: {
       food: {
         type: Object
@@ -54,10 +89,28 @@
     },
     data() {
       return {
-        visible: false
+        visible: false,
+        desc: {
+          all: '全部',
+          positive: '推荐',
+          negative: '吐槽'
+        }
       }
     },
+    computed: {
+      ratings() {
+        return this.food.ratings
+      },
+    },
     methods: {
+      fetch() {
+        if (!this.fetched){
+          this.fetched = true
+          getRatings.then((ratings)=>{
+            this.ratings = ratings
+          })
+        }
+      },
       show() {
         this.visible = true
         this.$nextTick(()=>{
@@ -67,20 +120,29 @@
       hide() {
         this.visible = false
       },
+      //food详情退出时shop-cart-sticky也退出
       afterLeave(el) {
+        //派发出事件
         this.$emit('leave')
       },
+      //第一次显示加入购物车，点击加入food
       addFirst(event) {
         this.$set(this.food, 'count',1)
-        this.$emit(EVENT_ADD,event.target)
+        this.$emit(ENENT_ADD, event.target)
       },
       addFood(target) {
-        this.$emit(EVENT_ADD,target)
-      }
+        this.$emit(ENENT_ADD, target)
+      },
+      // 将时间改为自己想要的样式
+      format(time) {
+        return moment(time).format('YYYY-MM--DD hh:mm')
+      },
     },
     components: {
       Split,
-      CartControl
+      CartControl,
+      moment,
+      RatingSelect
     }
   }
 </script>
@@ -183,4 +245,45 @@
         font-weight: 200
         line-height: 24px
         color: rgb(77,85,93)
+    .rating
+      padding-top: 18px
+      position: relative
+      .title
+        margin-left: 18px
+        font-size: 14px
+        line-height: 14px
+        color: #333
+      .rating-wrapper
+        padding: 0 18px
+        .rating-item
+          padding: 16px 0
+          position: relative
+          .time
+            font-size: 10px
+            line-height: 12px
+            color: rgb(147,153,159)
+            margin-bottom: 6px
+          .text
+            font-size: 12px
+            line-height: 16px
+            color: #333
+            .icon-thumb_up
+              color: rgb(0,160,220)
+              margin-right: 4px
+            .icon-thumb_down
+              color: #999
+              margin-right: 4px
+          .user
+            display: flex
+            align-items: center
+            position: absolute
+            right: 0
+            top: 16px
+            .name
+              font-size: 10px
+              line-height: 12px
+              color: rgb(147,153,159)
+              margin-right: 6px
+            .avatar
+              border-radius: 50%
 </style>

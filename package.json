@@ -10,8 +10,11 @@
   "dependencies": {
     "axios": "^0.18.0",
     "cube-ui": "^1.12.11",
-    "vue": "^2.6.6",
-    "jquery": "^3.3.1"
+    "jquery": "^3.3.1",
+    "moment": "^2.24.0",
+    "query-string": "^6.4.2",
+    "good-storage": "^1.1.0",
+    "vue": "^2.6.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",

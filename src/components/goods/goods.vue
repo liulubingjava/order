@@ -64,7 +64,7 @@
       </cube-scroll-nav>
     </div>
     <div class="shop-cart-wrapper">
-      <shop-cart ref="shopCart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shop-cart>
+      <shop-cart ref="ShopCart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></shop-cart>
     </div>
   </div>
 </template>
@@ -139,14 +139,16 @@
         // 当开始未定义undefined，也为false,!false需要fetch
         if (!this.fetched) {
           this.fetched = true
-          getGoods().then( (goods) =>{
+          getGoods({
+            id: this.seller.id
+          }).then( (goods) =>{
             this.goods = goods
           })
         }
       },
       onAdd(el) {
         this.$nextTick(()=>{
-          this.$refs.shopCart.drop(el)
+          this.$refs.ShopCart.drop(el)
         })
       },
       //每个food点开显示food详情
@@ -176,6 +178,7 @@
             deliveryPrice: this.seller.deliveryPrice,
             minPrice: this.seller.minPrice,
             fold: true,
+            //因为shop-cart-sticky中有list，所以得添加上
             list: {}
           }
         })

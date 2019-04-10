@@ -150,9 +150,11 @@
       //小球飞入前从购物车出来
       beforeDrop(el){
         const ball = this.dropBalls[this.dropBalls.length - 1]
+        //返回元素的大小及其相对于视口的位置
         const rect = ball.el.getBoundingClientRect()
         const x = rect.left - 32
         const y = -(window.innerHeight - rect.top - 22)
+        //贝塞尔曲线
         el.style.display = ''
         // el.style.transform经常丢style
         el.style.transform = el.style.webkitTransform = `translate3d(0,${y}px,0)`
@@ -161,10 +163,12 @@
       },
       //飞入时，横+竖构成抛物线
       dropping(el,done){
+        //手动取到offsetHeight,触发浏览器重绘
         this._reflow = document.body.offsetHeight
         el.style.transform = el.style.webkitTransform = `translate3d(0,0,0)`
         const inner = el.getElementsByClassName(innerClsHook)[0]
         inner.style.transform = inner.style.webkitTransform = `translate3d(0,0,0)`
+        //vue为了知道过度的完成，必须设置相应的事件监听器。它可以是trantitioned或animationend
         el.addEventListener('transitionend',done)
       },
       //飞入后又归入购物车中

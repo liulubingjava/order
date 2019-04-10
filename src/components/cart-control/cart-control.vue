@@ -31,7 +31,7 @@
           this.food.count++;
         }
         // 派发事件
-        this.$emit('add', event.target)
+        this.$emit(ENENT_ADD, event.target)
       },
       decrease() {
         if (this.food.count) {

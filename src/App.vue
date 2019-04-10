@@ -14,12 +14,16 @@
   import Goods from './components/goods/goods'
   import { getSeller } from "./api";
   import Tab from './components/tab/tab'
+  import qs from 'query-string'
 
   export default {
     name: 'app',
     data() {
       return {
-        seller: {}
+        seller: {
+          // 得到不同用户的id
+          id: qs.parse(location.search).id
+        }
       }
     },
     computed: {
@@ -59,7 +63,9 @@
         // getSeller().then(function (seller) {
         //   that.seller = seller
         // })
-        getSeller().then((seller)=>{
+        getSeller({
+          id: this.seller.id
+        }).then((seller)=>{
           this.seller = seller
         })
       },
