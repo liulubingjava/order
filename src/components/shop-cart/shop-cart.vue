@@ -37,15 +37,15 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Bubble from "../bubble/bubble"
+  import Bubble from '../bubble/bubble'
 
   // 定义球扔入的动画
   const BALL_LEN = 10
   const innerClsHook = 'inner-hook'
   // 创建小球
   function createBalls() {
-    let ret=[]
-    for (let i=0;i<BALL_LEN; i++){
+    let ret = []
+    for (let i = 0; i < BALL_LEN; i++) {
       ret.push({
         show: false
       })
@@ -72,7 +72,7 @@
         type: Number,
         default: 0
       },
-      //点击一次购物车会增加一次shop-cart-sticky，进而每一次调用shop-cart中的showList
+      // 点击一次购物车会增加一次shop-cart-sticky，进而每一次调用shop-cart中的showList
       fold: {
         type: Boolean,
         default: true
@@ -91,39 +91,39 @@
     computed: {
       // 总价格
       totalPrice() {
-        let total = 0;
+        let total = 0
         if (this.selectFoods) {
-          this.selectFoods.forEach((food)=>{
-            total += food.price * food.count;
+          this.selectFoods.forEach((food) => {
+            total += food.price * food.count
           })
         }
-        return total;
+        return total
       },
       // 总数量
       totalCount() {
-        let count = 0;
+        let count = 0
         if (this.selectFoods) {
-          this.selectFoods.forEach((food)=>{
+          this.selectFoods.forEach((food) => {
             count += food.count
           })
         }
-        return count;
+        return count
       },
       // 配送费
       // 结算
       payDesc() {
-        if (this.totalPrice === 0){
+        if (this.totalPrice === 0) {
           return `￥${this.minPrice}元起送`
-        }else if(this.totalPrice < this.minPrice){
+        } else if (this.totalPrice < this.minPrice) {
           return `还差￥${this.minPrice - this.totalPrice}元起送`
-        } else{
+        } else {
           return `去结算`
         }
       },
       // 结算样式
       payClass() {
         // 只有小于等于0时是enough,所以加上!this.totalCount
-        if (!this.totalCount || this.totalPrice < this.minPrice){
+        if (!this.totalCount || this.totalPrice < this.minPrice) {
           return 'not-enough'
         } else {
           return 'enough'
@@ -135,11 +135,11 @@
       this.dropBalls = []
     },
     methods: {
-      //小球飞入
+      // 小球飞入
       drop(el) {
-        for (let i=0;i<this.balls.length;i++){
+        for (let i = 0; i < this.balls.length; i++) {
           const ball = this.balls[i]
-          if (!ball.show){
+          if (!ball.show) {
             ball.show = true
             ball.el = el
             this.dropBalls.push(ball)
@@ -147,41 +147,41 @@
           }
         }
       },
-      //小球飞入前从购物车出来
-      beforeDrop(el){
+      // 小球飞入前从购物车出来
+      beforeDrop(el) {
         const ball = this.dropBalls[this.dropBalls.length - 1]
-        //返回元素的大小及其相对于视口的位置
+        // 返回元素的大小及其相对于视口的位置
         const rect = ball.el.getBoundingClientRect()
         const x = rect.left - 32
         const y = -(window.innerHeight - rect.top - 22)
-        //贝塞尔曲线
+        // 贝塞尔曲线
         el.style.display = ''
         // el.style.transform经常丢style
         el.style.transform = el.style.webkitTransform = `translate3d(0,${y}px,0)`
         const inner = el.getElementsByClassName(innerClsHook)[0]
         inner.style.transform = inner.style.webkitTransform = `translate3d(${x}px,0,0)`
       },
-      //飞入时，横+竖构成抛物线
-      dropping(el,done){
-        //手动取到offsetHeight,触发浏览器重绘
+      // 飞入时，横+竖构成抛物线
+      dropping(el, done) {
+        // 手动取到offsetHeight,触发浏览器重绘
         this._reflow = document.body.offsetHeight
         el.style.transform = el.style.webkitTransform = `translate3d(0,0,0)`
         const inner = el.getElementsByClassName(innerClsHook)[0]
         inner.style.transform = inner.style.webkitTransform = `translate3d(0,0,0)`
-        //vue为了知道过度的完成，必须设置相应的事件监听器。它可以是trantitioned或animationend
-        el.addEventListener('transitionend',done)
+        // vue为了知道过度的完成，必须设置相应的事件监听器。它可以是trantitioned或animationend
+        el.addEventListener('transitionend', done)
       },
-      //飞入后又归入购物车中
-      aferDrop(el){
+      // 飞入后又归入购物车中
+      aferDrop(el) {
         const ball = this.dropBalls.shift()
-        if (ball){
+        if (ball) {
           ball.show = false
           el.style.display = 'none'
         }
       },
       // 购物车展开
       showList() {
-        if (this.listFold){
+        if (this.listFold) {
           if (!this.totalCount) {
             return
           }
@@ -193,20 +193,20 @@
           this.hideShopCartList()
         }
       },
-      //去支付
+      // 去支付
       pay(e) {
         if (this.totalPrice < this.minPrice) {
           return
         }
-        //如果设为this.dialogComp || this.$createDialog，则每次支付的都是一样的价钱
-        this.dialogComp = this.$createDialog ({
+        // 如果设为this.dialogComp || this.$createDialog，则每次支付的都是一样的价钱
+        this.dialogComp = this.$createDialog({
           title: '支付',
-          content: `您共需要支付${this.totalPrice}元`,
+          content: `您共需要支付${this.totalPrice}元`
         }).show()
         // e.stopPropagation() // 阻止冒泡，上一个事件发生
       },
       showShopCartList() {
-        this.ShopCartListComp = this.ShopCartListComp || this.$createShopCartList ({
+        this.ShopCartListComp = this.ShopCartListComp || this.$createShopCartList({
           $props: {
             // 一定要写成字符串形式，保证是响应式的
             selectFoods: 'selectFoods'
@@ -219,7 +219,7 @@
             leave: () => {
               this.hideShopCartSticky()
             },
-            add: (el) =>{
+            add: (el) => {
               this.ShopCartStickyComp.drop(el)
             }
           }
@@ -239,13 +239,13 @@
         this.ShopCartStickyComp.show()
       },
       hideShopCartList() {
-        //判断什么时候用parent还是用ShopCartListComp,用sticky判断
+        // 判断什么时候用parent还是用ShopCartListComp,用sticky判断
         const comp = this.sticky ? this.$parent.list : this.ShopCartListComp
         comp.hide && comp.hide()
       },
       hideShopCartSticky() {
         this.ShopCartStickyComp.hide()
-      },
+      }
     },
     watch: {
       fold(newVal) {

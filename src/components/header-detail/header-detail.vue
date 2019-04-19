@@ -13,7 +13,7 @@
           <div class="line"></div>
         </div>
         <ul v-if="seller.supports" class="supports">
-          <li class="support-item" v-for="(item,index) in seller.supports">
+          <li class="support-item" v-for="(item,index) in seller.supports" :key="index">
             <support-ico :size=2 :type="seller.supports[index].type"></support-ico>
             <span class="description">{{seller.supports[index].description}}</span>
           </li>
@@ -34,19 +34,19 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Star from "../star/star"
-  import SupportIco from "../support-ico/support-ico"
-  import { getSeller } from "../../api";
+  import Star from '../star/star'
+  import SupportIco from '../support-ico/support-ico'
+  // import { getSeller } from '../../api'
 
   export default {
-    name: "header-detail",
+    name: 'header-detail',
     props: {
       seller: {
         type: Object,
         default() {
           return {}
         }
-      },
+      }
     },
     data() {
       return {
@@ -55,10 +55,10 @@
     },
     methods: {
       show() {
-        this.visible = true;
+        this.visible = true
       },
       hide() {
-        this.visible = false;
+        this.visible = false
       }
     },
     components: {

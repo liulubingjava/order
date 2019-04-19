@@ -4,7 +4,7 @@
 
 <script type="text/ecmascript-6">
   export default {
-    name: "support-ico",
+    name: 'support-ico',
     props: {
       size: {
         type: Number
@@ -15,7 +15,7 @@
     },
     computed: {
       iconCls() {
-        const classMap = ['decrease','discount','special','invoice','guarantee']
+        const classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
         // return 'icon-${this.size} ${classMap[this.type]}' 单引号是错误的，不显示，得``
         return `icon-${this.size} ${classMap[this.type]}`
       }

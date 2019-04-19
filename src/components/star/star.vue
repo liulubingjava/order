@@ -21,23 +21,23 @@
     },
     computed: {
       starType() {
-        return 'star-'+ this.size
+        return 'star-' + this.size
       },
       itemClass() {
-        let result = [];
-        const score = Math.floor(this.score * 2)/2;
-        const hasDecimal = score % 1 !==0;
-        const integer = Math.floor(score);
-        for (let i=0;i < integer;i++) {
+        let result = []
+        const score = Math.floor(this.score * 2) / 2
+        const hasDecimal = score % 1 !== 0
+        const integer = Math.floor(score)
+        for (let i = 0; i < integer; i++) {
           result.push(CLS_ON)
         }
-        if (hasDecimal){
+        if (hasDecimal) {
           result.push(CLS_HALF)
         }
-        while (result.length < LENGTH){
+        while (result.length < LENGTH) {
           result.push(CLS_OFF)
         }
-        return result;
+        return result
       }
     }
   }
