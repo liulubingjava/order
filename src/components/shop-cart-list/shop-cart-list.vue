@@ -34,7 +34,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import CartControl from "../cart-control/cart-control"
+  import CartControl from '../cart-control/cart-control'
 
   const EVENT_HIDE = 'hide'
   const EVENT_LEAVE = 'leave'
@@ -58,7 +58,7 @@
       show() {
         this.visible = true
         // 每次加载都会重新渲染
-        this.$nextTick(()=>{
+        this.$nextTick(() => {
           this.$refs.listContent.refresh()
         })
       },
@@ -77,8 +77,8 @@
           type: 'confirm',
           content: '确认清空购物车吗?',
           $events: {
-            confirm: ()=>{
-              this.selectFoods.forEach((food)=>{
+            confirm: () => {
+              this.selectFoods.forEach((food) => {
                 food.count = 0
               })
               this.hide()

@@ -71,11 +71,11 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Split from "../spilt/split"
-  import CartControl from "../cart-control/cart-control"
-  import moment from "moment"
-  import RatingSelect from "../rating-select/rating-select"
-  import RatingMixin from "../../common/mixins/rating"
+  import Split from '../spilt/split'
+  import CartControl from '../cart-control/cart-control'
+  import moment from 'moment'
+  import RatingSelect from '../rating-select/rating-select'
+  import RatingMixin from '../../common/mixins/rating'
 
   const ENENT_ADD = 'add'
 
@@ -100,34 +100,34 @@
     computed: {
       ratings() {
         return this.food.ratings
-      },
+      }
     },
     methods: {
-      fetch() {
-        if (!this.fetched){
-          this.fetched = true
-          getRatings.then((ratings)=>{
-            this.ratings = ratings
-          })
-        }
-      },
+      // fetch() {
+      //   if (!this.fetched) {
+      //     this.fetched = true
+      //     getRatings.then((ratings) => {
+      //       this.ratings = ratings
+      //     })
+      //   }
+      // },
       show() {
         this.visible = true
-        this.$nextTick(()=>{
+        this.$nextTick(() => {
           this.$refs.scroll.refresh()
         })
       },
       hide() {
         this.visible = false
       },
-      //food详情退出时shop-cart-sticky也退出
+      // food详情退出时shop-cart-sticky也退出
       afterLeave(el) {
-        //派发出事件
+        // 派发出事件
         this.$emit('leave')
       },
-      //第一次显示加入购物车，点击加入food
+      // 第一次显示加入购物车，点击加入food
       addFirst(event) {
-        this.$set(this.food, 'count',1)
+        this.$set(this.food, 'count', 1)
         this.$emit(ENENT_ADD, event.target)
       },
       addFood(target) {
@@ -136,12 +136,12 @@
       // 将时间改为自己想要的样式
       format(time) {
         return moment(time).format('YYYY-MM--DD hh:mm')
-      },
+      }
     },
     components: {
       Split,
       CartControl,
-      moment,
+      // moment,
       RatingSelect
     }
   }

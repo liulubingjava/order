@@ -70,11 +70,11 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { getGoods } from "../../api";
-  import SupportIco from "../support-ico/support-ico"
-  import ShopCart from "../shop-cart/shop-cart"
-  import CartControl from "../cart-control/cart-control"
-  import Bubble from "../bubble/bubble"
+  import { getGoods } from '../../api'
+  import SupportIco from '../support-ico/support-ico'
+  import ShopCart from '../shop-cart/shop-cart'
+  import CartControl from '../cart-control/cart-control'
+  import Bubble from '../bubble/bubble'
 
   export default {
     name: 'goods',
@@ -103,9 +103,9 @@
       },
       selectFoods() {
         let ret = []
-        this.goods.forEach((good)=>{
-          good.foods.forEach((food)=>{
-            if (food.count){
+        this.goods.forEach((good) => {
+          good.foods.forEach((food) => {
+            if (food.count) {
               ret.push(food)
             }
           })
@@ -115,11 +115,11 @@
       // 侧边栏插槽自定义内容
       barTxts() {
         let ret = []
-        this.goods.forEach((good)=> {
-          const { type, name, foods} = good
+        this.goods.forEach((good) => {
+          const { type, name, foods } = good
           // 遍历为了得到food数量
           let count = 0
-          foods.forEach((food)=> {
+          foods.forEach((food) => {
             // 当是undefined时是不进行自加的,所以就为0
             count += food.count || 0
           })
@@ -130,39 +130,39 @@
           })
         })
         return ret
-      },
+      }
     },
     methods: {
-      //滑动到页面加载后台
+      // 滑动到页面加载后台
       fetch() {
-        //滑动回来添加的food仍然在，如果没有fetch过则进行fetch,fetch过则不再进行，
+        // 滑动回来添加的food仍然在，如果没有fetch过则进行fetch,fetch过则不再进行，
         // 当开始未定义undefined，也为false,!false需要fetch
         if (!this.fetched) {
           this.fetched = true
           getGoods({
             id: this.seller.id
-          }).then( (goods) =>{
+          }).then((goods) => {
             this.goods = goods
           })
         }
       },
       onAdd(el) {
-        this.$nextTick(()=>{
+        this.$nextTick(() => {
           this.$refs.ShopCart.drop(el)
         })
       },
-      //每个food点开显示food详情
+      // 每个food点开显示food详情
       showFood(food) {
         this.selectedFood = food
-        this.FoodComp = this.FoodComp || this.$createFood ({
+        this.FoodComp = this.FoodComp || this.$createFood({
           $props: {
             food: 'selectedFood'
           },
           $events: {
-            leave: ()=>{
+            leave: () => {
               this.hideShopCartList()
             },
-            add: (el) =>{
+            add: (el) => {
               this.ShopCartStickyComp.drop(el)
             }
           }
@@ -170,7 +170,7 @@
         this.FoodComp.show()
         this.showShopCartSticky()
       },
-      //展开food详情时底下购物车遮挡，需要添加shop-cart-sticky
+      // 展开food详情时底下购物车遮挡，需要添加shop-cart-sticky
       showShopCartSticky() {
         this.ShopCartStickyComp = this.ShopCartStickyComp || this.$createShopCartSticky({
           $props: {
@@ -178,7 +178,7 @@
             deliveryPrice: this.seller.deliveryPrice,
             minPrice: this.seller.minPrice,
             fold: true,
-            //因为shop-cart-sticky中有list，所以得添加上
+            // 因为shop-cart-sticky中有list，所以得添加上
             list: {}
           }
         })

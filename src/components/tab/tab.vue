@@ -55,7 +55,7 @@
       }
     },
     computed: {
-      //改变cube-tab-bar，也就是点击事件
+      // 改变cube-tab-bar，也就是点击事件
       selectedLabel: {
         get() {
           return this.tabs[this.index].label
@@ -71,22 +71,22 @@
       this.onChange(this.index)
     },
     methods: {
-      //改变滑动事件，从而使点击也跟随改变
+      // 改变滑动事件，从而使点击也跟随改变
       onChange(current) {
         this.index = current
         const component = this.$refs.component[current]
         component.fetch && component.fetch()
       },
-      //使滑动过程中，内容滑动，tab横线也跟随滑动，用相对比例
+      // 使滑动过程中，内容滑动，tab横线也跟随滑动，用相对比例
       onScroll(pos) {
         const tabBarWidth = this.$refs.tabBar.$el.clientWidth
-        //每个滑动过程中横线都会随着滚动
+        // 每个滑动过程中横线都会随着滚动
         const slideWidth = this.$refs.slide.slide.scrollerWidth
         const transform = (-pos.x / slideWidth) * tabBarWidth
         // const transform = tabBarWidth / this.tabs.length没有中间过程，相当于onScroll没用
         this.$refs.tabBar.setSliderTransform(transform)
       }
-    },
+    }
   }
 </script>
 
