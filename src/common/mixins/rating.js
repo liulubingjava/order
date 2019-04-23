@@ -3,17 +3,17 @@ export default {
   data() {
     return {
       selectType: ALL,
-      onlyContent: true,
+      onlyContent: true
     }
   },
   computed: {
     computedRatings() {
       let ret = []
-      this.ratings.forEach((rating)=>{
-        if (this.onlyContent && !rating.text){
+      this.ratings.forEach((rating) => {
+        if (this.onlyContent && !rating.text) {
           return
         }
-        if (this.selectType === ALL || this.selectType === rating.rateType){
+        if (this.selectType === ALL || this.selectType === rating.rateType) {
           ret.push(rating)
         }
       })
