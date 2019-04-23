@@ -36,7 +36,6 @@
 
 <script type="text/ecmascript-6">
   import SupportIco from '../support-ico/support-ico'
-  import HeaderDetail from '../header-detail/header-detail'
 
   export default {
     name: 'v-header',
@@ -61,8 +60,7 @@
       }
     },
     components: {
-      SupportIco,
-      HeaderDetail
+      SupportIco
     }
   }
 </script>

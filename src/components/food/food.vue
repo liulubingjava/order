@@ -103,14 +103,6 @@
       }
     },
     methods: {
-      // fetch() {
-      //   if (!this.fetched) {
-      //     this.fetched = true
-      //     getRatings.then((ratings) => {
-      //       this.ratings = ratings
-      //     })
-      //   }
-      // },
       show() {
         this.visible = true
         this.$nextTick(() => {
@@ -141,7 +133,6 @@
     components: {
       Split,
       CartControl,
-      // moment,
       RatingSelect
     }
   }

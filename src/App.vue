@@ -72,10 +72,7 @@
     },
     components: {
       VHeader,
-      Tab,
-      Seller,
-      Ratings,
-      Goods
+      Tab
     }
   }
 </script>

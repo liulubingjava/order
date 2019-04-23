@@ -36,7 +36,6 @@
 <script type="text/ecmascript-6">
   import Star from '../star/star'
   import SupportIco from '../support-ico/support-ico'
-  // import { getSeller } from '../../api'
 
   export default {
     name: 'header-detail',

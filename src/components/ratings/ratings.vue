@@ -117,7 +117,6 @@
       Star,
       Spilt,
       RatingSelect
-      // moment
     }
   }
 </script>

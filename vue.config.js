@@ -1,8 +1,8 @@
 const path = require('path')
-const appData = require('./data.json')
-const seller = appData.seller
-const goods = appData.goods
-const ratings = appData.ratings
+// const appData = require('./data.json')
+// const seller = appData.seller
+// const goods = appData.goods
+// const ratings = appData.ratings
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -25,30 +25,30 @@ module.exports = {
     }
   },
   // 与后台连接数据
-  devServer: {
-    before(app) {
-      app.get('/api/seller', function (req, res) {
-        // 添加id
-        const id = req.query.id
-        res.json({
-          errno: 0,
-          data: Object.assign({}, seller, { id })
-        })
-      })
-      app.get('/api/goods', function (req, res) {
-        res.json({
-          errno: 0,
-          data: goods
-        })
-      })
-      app.get('/api/ratings', function (req, res) {
-        res.json({
-          errno: 0,
-          data: ratings
-        })
-      })
-    }
-  },
+  // devServer: {
+  //   before(app) {
+  //     app.get('/api/seller', function (req, res) {
+  //       // 添加id
+  //       const id = req.query.id
+  //       res.json({
+  //         errno: 0,
+  //         data: Object.assign({}, seller, { id })
+  //       })
+  //     })
+  //     app.get('/api/goods', function (req, res) {
+  //       res.json({
+  //         errno: 0,
+  //         data: goods
+  //       })
+  //     })
+  //     app.get('/api/ratings', function (req, res) {
+  //       res.json({
+  //         errno: 0,
+  //         data: ratings
+  //       })
+  //     })
+  //   }
+  // },
   // 通过resolve函数配置的common的路径
   chainWebpack(config) {
     config.resolve.alias
