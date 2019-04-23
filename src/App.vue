@@ -12,7 +12,7 @@
   import Seller from './components/seller/seller'
   import Ratings from './components/ratings/ratings'
   import Goods from './components/goods/goods'
-  import { getSeller } from './api'
+  import { getSeller } from "./api";
   import Tab from './components/tab/tab'
   import qs from 'query-string'
 
@@ -49,12 +49,12 @@
             data: {
               seller: this.seller
             }
-          }
+          },
         ]
       }
     },
     created() {
-      this._getSeller()
+      this._getSeller();
     },
     methods: {
       _getSeller() {
@@ -65,10 +65,10 @@
         // })
         getSeller({
           id: this.seller.id
-        }).then((seller) => {
+        }).then((seller)=>{
           this.seller = seller
         })
-      }
+      },
     },
     components: {
       VHeader,

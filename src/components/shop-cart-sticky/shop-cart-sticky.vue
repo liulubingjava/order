@@ -12,7 +12,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import ShopCart from '../shop-cart/shop-cart'
+  import ShopCart from "../shop-cart/shop-cart"
   export default {
     name: 'shop-cart-sticky',
     data() {
@@ -43,8 +43,8 @@
       },
       list: {
         type: Object,
-        default() {
-          return {}
+        default: {
+          return: {}
         }
       }
     },

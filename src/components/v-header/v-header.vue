@@ -35,11 +35,12 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import SupportIco from '../support-ico/support-ico'
-  // import HeaderDetail from '../header-detail/header-detail'
+  import SupportIco from "../support-ico/support-ico"
+  import HeaderDetail from "../header-detail/header-detail"
+  import { getSeller } from "../../api"
 
   export default {
-    name: 'v-header',
+    name: "v-header",
     props: {
       seller: {
         type: Object,
@@ -47,7 +48,7 @@
         default() {
           return {}
         }
-      }
+      },
     },
     methods: {
       showDetail: function () {
@@ -56,13 +57,13 @@
             $props: {
               seller: 'seller'
             }
-        })
-        this.HeaderDetailComp.show()
+        });
+        this.HeaderDetailComp.show();
       }
     },
     components: {
-      SupportIco
-      // HeaderDetail
+      SupportIco,
+      HeaderDetail
     }
   }
 </script>

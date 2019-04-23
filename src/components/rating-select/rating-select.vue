@@ -21,11 +21,11 @@
 <script type="text/ecmascript-6">
   const POSITIVE = 0
   const NEGATIVE = 1
-  const ALL = 2
-  const EVENT_SELECT = 'select'
-  const EVENT_TOGGLE = 'toggle'
+  const  ALL = 2
+  const EVENT_SELECT ='select'
+  const EVENT_TOGGLE ='toggle'
   export default {
-    name: 'ratingselect',
+    name: "ratingselect",
     props: {
       ratings: {
         type: Array,
@@ -54,24 +54,24 @@
     },
     computed: {
       positives() {
-        return this.ratings.filter((rating) => {
+        return this.ratings.filter((rating)=>{
           return rating.rateType === POSITIVE
         })
       },
       negatives() {
-        return this.ratings.filter((rating) => {
+        return this.ratings.filter((rating)=> {
           return rating.rateType === NEGATIVE
         })
       }
     },
     methods: {
       select(type) {
-        this.$emit(EVENT_SELECT, type)
+        this.$emit(EVENT_SELECT,type)
       },
       toggle() {
         this.$emit(EVENT_TOGGLE)
       }
-    }
+    },
   }
 </script>
 
@@ -117,3 +117,5 @@
         font-size: 12px
 
 </style>
+
+

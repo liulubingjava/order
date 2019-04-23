@@ -71,10 +71,11 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Star from '../star/star'
-  import Split from '../spilt/split'
-  import SupportIco from '../support-ico/support-ico'
-  import { saveToLocal, loadFromLocal } from '../../common/js/storage'
+  import { getSeller } from "../../api";
+  import Star from "../star/star"
+  import Split from "../spilt/split";
+  import SupportIco from "../support-ico/support-ico"
+  import { saveToLocal,loadFromLocal } from "../../common/js/storage"
 
   export default {
     name: 'seller',
@@ -106,7 +107,7 @@
       },
       favoriteText() {
         return this.favorite ? '已收藏' : '收藏'
-      }
+      },
     },
     created() {
       this.favorite = loadFromLocal(this.seller.id, 'favorite', false)
@@ -120,7 +121,7 @@
     components: {
       Star,
       Split,
-      SupportIco
+      SupportIco,
     }
   }
 </script>

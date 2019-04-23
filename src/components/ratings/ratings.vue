@@ -66,12 +66,12 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { getRatings } from '../../api'
-  import Star from '../star/star'
-  import Spilt from '../spilt/split'
-  import RatingSelect from '../rating-select/rating-select'
-  import moment from 'moment'
-  import RatingMixin from '../../common/mixins/rating'
+  import { getRatings } from "../../api";
+  import Star from "../star/star"
+  import Spilt from "../spilt/split"
+  import RatingSelect from "../rating-select/rating-select"
+  import moment from "moment"
+  import RatingMixin from "../../common/mixins/rating"
 
   export default {
     name: 'ratings',
@@ -96,15 +96,15 @@
       }
     },
     methods: {
-      // 滑动到页面加载后台
+      //滑动到页面加载后台
       fetch() {
-        // 滑动回来添加的food仍然在，如果没有fetch过则进行fetch,fetch过则不再进行，
+        //滑动回来添加的food仍然在，如果没有fetch过则进行fetch,fetch过则不再进行，
         // 当开始未定义undefined，也为false,!false需要fetch
         if (!this.fetched) {
           this.fetched = true
           getRatings({
             id: this.seller.id
-          }).then((ratings) => {
+          }).then( (ratings) =>{
             this.ratings = ratings
           })
         }
@@ -116,8 +116,8 @@
     components: {
       Star,
       Spilt,
-      RatingSelect
-      // moment
+      RatingSelect,
+      moment
     }
   }
 </script>

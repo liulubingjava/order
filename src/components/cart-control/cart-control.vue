@@ -24,11 +24,11 @@
     },
     methods: {
       add(event) {
-        if (!this.food.count) {
+        if (! this.food.count){
           // vue中自设置属性识别不出，所以要添加属性，响应式添加用api,this,$set
-          this.$set(this.food, 'count', 1)
+          this.$set(this.food,'count',1)
         } else {
-          this.food.count++
+          this.food.count++;
         }
         // 派发事件
         this.$emit(ENENT_ADD, event.target)
